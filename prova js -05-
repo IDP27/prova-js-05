@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+
+
+let tarefas = [];
+
+
+const adicionarTarefa = function(tarefa) {
+    tarefas.push({ nome: tarefa, concluida: false });
+    console.log(`Tarefa adicionada: "${tarefa}"`);
+};
+
+const listarTarefas = () => {
+    console.log("\nLista de Tarefas:");
+    if (tarefas.length === 0) {
+        console.log("Nenhuma tarefa cadastrada.");
+    } else {
+        tarefas.forEach((tarefa, index) => {
+            let status = tarefa.concluida ? "✔️ Concluída" : " Pendente";
+            console.log(`${index}: ${tarefa.nome} - ${status}`);
+        });
+    }
+};
+
+
+function processarTarefas(callback) {
+    callback();
+}
+
+const removerTarefa = () => {
+    let index = parseInt(prompt("Digite o índice da tarefa que deseja remover:"));
+    if (!isNaN(index) && tarefas[index]) {
+        console.log(`Tarefa removida: "${tarefas[index].nome}"`);
+        tarefas.splice(index, 1);
+    } else {
+        console.log("Índice inválido.");
+    }
+};
+
+const atualizarTarefa = () => {
+    let index = parseInt(prompt("Digite o índice da tarefa que deseja atualizar:"));
+    if (!isNaN(index) && tarefas[index]) {
+        let novoNome = prompt("Digite o novo nome da tarefa:");
+        console.log(`Tarefa "${tarefas[index].nome}" atualizada para "${novoNome}"`);
+        tarefas[index].nome = novoNome;
+    } else {
+        console.log("Índice inválido.");
+    }
+};
+
+const concluirTarefa = () => {
+    let index = parseInt(prompt("Digite o índice da tarefa que deseja concluir:"));
+    if (!isNaN(index) && tarefas[index]) {
+        tarefas[index].concluida = true;
+        console.log(`Tarefa concluída: "${tarefas[index].nome}"`);
+    } else {
+        console.log("Índice inválido.");
+    }
+};
+
+
+let opcao;
+do {
+    opcao = prompt(
+        "\nEscolha uma opção:\n1 - Adicionar Tarefa\n2 - Listar Tarefas\n3 - Remover Tarefa\n4 - Atualizar Tarefa\n5 - Concluir Tarefa\n6 - Sair"
+    );
+
+    switch (opcao) {
+        case "1":
+            const novaTarefa = prompt("Digite a nova tarefa:");
+            adicionarTarefa(novaTarefa);
+            break;
+        case "2":
+            listarTarefas();
+            break;
+        case "3":
+            processarTarefas(removerTarefa);
+            break;
+        case "4":
+            processarTarefas(atualizarTarefa);
+            break;
+        case "5":
+            processarTarefas(concluirTarefa);
+            break;
+        case "6":
+            console.log("Saindo do programa...");
+            break;
+        default:
+            console.log("Opção inválida. Tente novamente.");
+    }
+} while (opcao !== "6");
+
+    </script>
+    
+</body>
+</html>
